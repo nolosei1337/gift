@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Erica Jardim</title>
+
+    <script defer>
+
+        const date = new Date(Date())
+    
+        const localDate = date.toLocaleString();
+    
+        const day = date.getDate();
+    
+        const month = date.getMonth() + 1;
+    
+        const birthDay = 30; 
+        const birthMonth = 5; 
+
+        const isBirthday = (day == birthDay && month == birthMonth); 
+    
+        function updateDOM(){
+            //Delete the countdown elements
+            const countdownElement = document.getElementById("countdown");
+            countdownElement.innerHTML = "";
+
+            const giftElement = document.getElementById("gift");
+            giftElement.classList.remove("hidden");
+
+        }
+
+        const showgift = () => {
+            //Play the background music
+            const audio = new Audio('assets/bgmusic.mp3');
+            audio.load(); 
+            audio.play(); 
+
+            //Show the gift
+            const giftBtn = document.getElementById("giftbtn");
+            giftBtn.classList.add("hidden");
+
+            //Show the carousel
+            const imgCarousel = document.getElementById("imgcarousel");
+            imgCarousel.classList.remove("hidden");
+
+            //Update the text
+            const headerElement = document.getElementById("header");
+            header.textContent = "Feliz Aniversário Amor, Amo-te <3";
+        }
+    
+        function updateDate() {
+            const currentDate = new Date();
+            const currentDay = currentDate.getDate();
+            const currentMonth = currentDate.getMonth() + 1;
+            const currentHours = currentDate.getHours();
+            const currentMinutes = currentDate.getMinutes();
+            const currentSeconds = currentDate.getSeconds();
+
+            const daysElement = document.getElementById("dias");
+            const hoursElement = document.getElementById("horas");
+            const minutesElement = document.getElementById("minutos");
+            const secondsElement = document.getElementById("segundos");
+
+            let daysLeft = birthDay - currentDay;
+            const hoursLeft = 24 - currentHours;
+            const minutesLeft = 60 - currentMinutes;
+            const secondsLeft = 60 - currentSeconds;
+
+            const daysInCurrentMonth=new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
+
+            //Get the correct days difference
+            daysLeft = daysLeft < 0 ? daysInCurrentMonth + daysLeft : daysLeft; 
+
+            daysElement.textContent = daysLeft.toString();
+            hoursElement.textContent = hoursLeft.toString();
+            minutesElement.textContent = minutesLeft.toString();
+            secondsElement.textContent = secondsLeft.toString();
+
+            if(birthDay == currentDay && birthMonth == currentMonth){
+                //Reload the page when it's the birthday
+                //I don't wanna have extra work to update DOM because VanillaJS is a pain in the ass
+                updateDOM(); 
+            }
+
+            //Update the date every second
+            setInterval(updateDate, 1000);
+        }
+
+        //Only when the page is loaded call the function
+        document.addEventListener("DOMContentLoaded", function() {
+            if(!isBirthday){
+                updateDate();
+            }
+            else{
+                updateDOM(); 
+            }
+        });
+      
+    </script>
+    
+</head>
+<body class="bg-red-400">
+
+    <div class="flex flex-col text-center justify-center items-center h-screen space-y-12 font-sans">
+        <h1 id="header" class="text-3xl font-bold uppercase">Anos do meu amor</h1>
+        <div id="countdown" class="text-2xl font-bold uppercase">
+            <p class="">Countdown: </p>
+            <div class="my-4 flex md:flex-row flex-col md:space-x-4">
+                <div class="flex flex-col p-6 space-y-4 bg-gray-100 my-2">
+                    <p id="dias" class="text-xl"></p>
+                    <p>Dias</p>
+                </div>
+                <div class="flex flex-col p-6 space-y-4 bg-gray-100 my-2">
+                    <p id="horas" class="text-xl"></p>
+                    <p>Horas</p>
+                </div>
+                <div class="flex flex-col p-6 space-y-4 bg-gray-100 my-2">
+                    <p id="minutos" class="text-xl"></p>
+                    <p>Minutos</p>
+                </div>
+                <div class="flex flex-col p-6 space-y-4 bg-gray-100 my-2">
+                    <p id="segundos" class="text-xl"></p>
+                    <p>Segundos</p>
+                </div>
+            </div>
+        </div>
+        <div id="gift" class="hidden">
+            <button id="giftbtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showgift()">
+                Mostrar Presente
+            </button>
+        </div>
+
+        <div id="imgcarousel" class="hidden">
+            <!-- This is an example component -->
+            <div class="max-w-2xl mx-auto">
+
+                <div id="default-carousel" class="relative" data-carousel="static">
+                    <!-- Carousel wrapper -->
+                    <div class="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96 bg-gray-100">
+                        <!-- Item 1 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <span class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
+                            <img src="assets/cascadebala/1.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/2.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/3.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/4.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/5.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 6 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/6.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 7 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/7.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 8 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/8.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 9 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/9.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 10 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/10.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 11 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/11.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 12 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/12.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 13 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/13.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 14 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/14.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 15 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/15.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 16 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/16.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                        <!-- Item 17 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <img src="assets/cascadebala/17.jpeg" class="block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-full max-h-full" alt="...">
+                        </div>
+                    </div>
+                    <!-- Slider indicators -->
+                    <div class="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 6" data-carousel-slide-to="5"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 7" data-carousel-slide-to="6"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 8" data-carousel-slide-to="7"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 9" data-carousel-slide-to="8"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 10" data-carousel-slide-to="9"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 11" data-carousel-slide-to="10"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 12" data-carousel-slide-to="11"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 13" data-carousel-slide-to="12"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 14" data-carousel-slide-to="13"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 15" data-carousel-slide-to="14"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 16" data-carousel-slide-to="15"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 17" data-carousel-slide-to="16"></button>
+                    </div>
+                    <!-- Slider controls -->
+                    <button type="button" class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-prev>
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            <span class="hidden">Previous</span>
+                        </span>
+                    </button>
+                    <button type="button" class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-next>
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <span class="hidden">Next</span>
+                        </span>
+                    </button>
+                </div>
+
+                <p class="mt-5 text-md font-sans font-bold">
+                    Feliz Aniversário Amor, bem vinda ao clube dos 20 xD !! <br> Obrigado por me fazeres o homem mais feliz do mundo 
+                    e tornares-me um homem melhor a que dia que passa. Fizes-te me perceber que não há sensação melhor do que 
+                    ser amado e amar alguém. Obrigado por seres a minha melhor amiga, a minha companheira, a minha confidente, a minha
+                    namorada e a minha futura esposa. <br>
+                    Apareces-te na minha vida na minha fase mais difícil, em que eu estava a perder-me na tristeza e a afundar-me cada
+                    vez mais no alcóol e na solidão. <br>
+                    Não me consigo ver sem ti e sinto muito pena de não poder estar aí contigo a celebrar o teu dia. <br> 
+                    Prometo que este será o último aniversário que passamos longe um do outro. <br>
+                    Amo-te muito e obrigado por me fazeres tão bem e feliz. <br>
+                    Parabéns amoooooooor !!! s2
+                </p>
+                <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
